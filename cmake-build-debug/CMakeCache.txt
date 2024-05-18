@@ -225,11 +225,53 @@ CURSES_INCLUDE_PATH:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
 //Path to a library.
 CURSES_NCURSES_LIBRARY:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/lib/libncurses.tbd
 
+//Directory under which to collect all populated content
+FETCHCONTENT_BASE_DIR:PATH=/Users/bulatbaikenov/tp-project/cmake-build-debug/_deps
+
+//Disables all attempts to download or update content and assumes
+// source dirs already exist
+FETCHCONTENT_FULLY_DISCONNECTED:BOOL=OFF
+
+//Enables QUIET option for all content population
+FETCHCONTENT_QUIET:BOOL=ON
+
+//When not empty, overrides where to find pre-populated content
+// for asio
+FETCHCONTENT_SOURCE_DIR_ASIO:PATH=
+
+//When not empty, overrides where to find pre-populated content
+// for asio-cmake
+FETCHCONTENT_SOURCE_DIR_ASIO-CMAKE:PATH=
+
+//Enables UPDATE_DISCONNECTED behavior for all content population
+FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of asio
+FETCHCONTENT_UPDATES_DISCONNECTED_ASIO:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of asio-cmake
+FETCHCONTENT_UPDATES_DISCONNECTED_ASIO-CMAKE:BOOL=OFF
+
+//Git command line client
+GIT_EXECUTABLE:FILEPATH=/opt/homebrew/bin/git
+
 //Arguments to supply to pkg-config
 PKG_CONFIG_ARGN:STRING=
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/opt/homebrew/bin/pkg-config
+
+//Value Computed by CMake
+asio-cmake_BINARY_DIR:STATIC=/Users/bulatbaikenov/tp-project/cmake-build-debug/_deps/asio-cmake-build
+
+//Value Computed by CMake
+asio-cmake_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+asio-cmake_SOURCE_DIR:STATIC=/Users/bulatbaikenov/tp-project/cmake-build-debug/_deps/asio-cmake-src
+
+//The directory containing a CMake configuration file for asio.
+asio_DIR:PATH=asio_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for ncurses.
 ncurses_DIR:PATH=ncurses_DIR-NOTFOUND
@@ -339,7 +381,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -394,6 +436,8 @@ CURSES_INCLUDE_PATH-ADVANCED:INTERNAL=1
 CURSES_NCURSES_LIBRARY-ADVANCED:INTERNAL=1
 //Details about finding Curses
 FIND_PACKAGE_MESSAGE_DETAILS_Curses:INTERNAL=[/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/lib/libcurses.tbd][/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include][v()]
+//ADVANCED property for variable: GIT_EXECUTABLE
+GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 NCURSES_CFLAGS:INTERNAL=
 NCURSES_CFLAGS_I:INTERNAL=
 NCURSES_CFLAGS_OTHER:INTERNAL=

@@ -10,7 +10,7 @@ bool Block::is_blocked() const noexcept {
   return is_blocked_;
 }
 
-std::string Block::handle() noexcept {
+std::string Block::handle() const noexcept {
   if (is_false()) {
     return ":";
   } else if (is_ship()) {
@@ -39,4 +39,8 @@ bool Block::is_false() const noexcept {
 }
 void Block::set_false() noexcept {
   is_false_ = !is_false_;
+}
+std::ostream& operator<<(std::ostream& stream, const Block& block) noexcept {
+  stream << block.handle();
+  return stream;
 }

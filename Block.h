@@ -4,8 +4,8 @@
 
 #ifndef TP_PROJECT_BLOCK_H
 #define TP_PROJECT_BLOCK_H
+#include <iostream>
 #include <string>
-
 class Block {
 private:
     bool is_blocked_;
@@ -19,7 +19,8 @@ public:
     void set_block() noexcept;
     void set_ship() noexcept;
     void set_false() noexcept;
-    std::string handle() noexcept;
+    friend std::ostream& operator<< (std::ostream&, const Block&) noexcept;
+    std::string handle() const noexcept;
 };
 
 

@@ -4,13 +4,25 @@
 
 #include "Map.h"
 #include <ncurses.h>
+#include <fstream>
+#include <string>
 Map::Map() {
   blocks_.resize(BLOCK_SIZE);
   for (auto& it : blocks_) {
     it.resize(BLOCK_SIZE);
   }
+  wrote();
 }
-
+void Map::wrote() {
+  std::ofstream myfile("~/cfg");
+  for (size_t i = 0; i < BLOCK_SIZE; ++i) {
+    for (size_t j = 0; j < BLOCK_SIZE; ++j) {
+      myfile << blocks_[i][j].handle() << " ";
+    }
+    myfile << "\n";
+  }
+  myfile << std::endl;
+}
 void Map::print() {
   printw("                        remaining ships to place:\n");
   printw("                        one-tile ships : %d\n", ships_[0]);
@@ -39,15 +51,17 @@ Block& Map::operator[](const size_t& block) {
 }
 void Map::change_to_ship(const size_t& first, const size_t& second) {
   blocks_[first][second].set_ship();
+  wrote();
 }
 
 void Map::change_to_blocked(const size_t& first, const size_t& second) {
   blocks_[first][second].set_block();
-
+  wrote();
 }
 
 void Map::change_to_false(const size_t& first, const size_t& second) {
   blocks_[first][second].set_false();
+  wrote();
 }
 
 bool Map::all_ships_zero() const {
@@ -77,7 +91,7 @@ void Map::place_random() {
       continue;
     }
   }
-
+  wrote();
 }
 bool Map::is_ships_ended(const size_t &length) {
   if ((ships_[3] != 0 && length < 4) || (ships_[2] != 0 && length < 3)
@@ -107,6 +121,7 @@ void Map::place_ship(const size_t& first_point, const size_t& second_point) {
   for (size_t i = first_point; i <= second_point; i += diff) {
     Map::operator[](i).set_ship();
   }
+  wrote();
 }
 
 bool Map::is_lost() const {
@@ -123,4 +138,5 @@ bool Map::make_dead(const size_t& index) {
   } else {
     return false;
   }
+  wrote();
 }

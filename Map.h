@@ -19,7 +19,7 @@ public:
   Map(size_t size);
 
   void print();
-
+  void wrote();
   Block& operator[](const size_t&);
 
   void change_to_ship(const size_t&, const size_t&);

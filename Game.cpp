@@ -3,9 +3,12 @@
 #include <unistd.h>
 #include "Map.h"
 #include "Bot.h"
+#include "Block.h"
 class Game {
 public:
-    Game() : map_(), input_() {}
+    Game() : map_(), input_() {
+      map_.wrote();
+    }
 
     void run() {
       initscr();
@@ -37,11 +40,11 @@ private:
         getstr(input_);
         if (input_[0] == 'h') {
           //Second iteration
-        } else if (input_[0] == 'a') {
+        } else if (input_[0] == 'a' && map_.all_ships_zero()) {
           Bot bot;
           bot.map.place_random();
           print("Fight started!\n");
-          int random = rand() % 2;//rand() % 2
+          int random = rand() % 2;
           if (random == 0) {
             print("Bot has privilege to attack first!\n");
             size_t atk = bot.attack();
@@ -183,6 +186,7 @@ private:
 };
 
 int main() {
+  setlocale(LC_ALL, "");
   srand(time(0));
   Game game;
   game.run();

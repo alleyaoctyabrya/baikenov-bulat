@@ -19,6 +19,9 @@ FetchContent_MakeAvailable(asio-cmake)
 target_link_libraries(tp_project
         PRIVATE asio
 )
+
+add_subdirectory(${CMAKE_BINARY_DIR}/../3rdparty/$ENV{GOOGLE_TEST_DIR})
+
 add_library(BLOCK_LIBRARY Block.cpp Block.h)
 add_library(BOT_LIBRARY Bot.cpp Bot.h)
 add_library(MAP_LIBRARY Map.cpp Map.h)

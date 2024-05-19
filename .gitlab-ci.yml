@@ -30,8 +30,3 @@ TestCode:
 
   script:
     - cd bin
-  artifacts:
-    untracked: false
-    reports:
-      junit:
-        - bin/report.xml

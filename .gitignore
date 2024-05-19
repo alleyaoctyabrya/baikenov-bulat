@@ -1,2 +1,2 @@
-cmake-build-debug
-venv
+/cmake-build-debug
+/venv

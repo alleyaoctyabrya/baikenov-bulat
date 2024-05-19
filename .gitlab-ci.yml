@@ -1,0 +1,42 @@
+stages:
+  - build
+  - test
+default:
+  tags:
+    - cpu
+
+BuildCode:
+  stage: build
+
+  before_script:
+    - apt-get update
+    - apt-get install -y cmake git
+    - cd task-ci
+    - cd 3rdparty
+    - git clone https://github.com/google/googletest.git
+    - export GOOGLE_TEST_DIR=googletest
+
+  script:
+    - cd ../
+    - mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make && make install
+
+  artifacts:
+    untracked: false
+    when: on_success
+    expire_in: 7 days
+    paths:
+      - "task-ci/bin/"
+      - "task-ci/lib/"
+
+TestCode:
+  stage: test
+
+  script:
+    - cd /bin
+    - ./CTestExe --gtest_output=xml:report.xml
+
+  artifacts:
+    untracked: false
+    reports:
+      junit:
+        - task-ci/bin/report.xml

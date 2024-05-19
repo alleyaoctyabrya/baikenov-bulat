@@ -27,5 +27,3 @@ BuildCode:
       - "bin/"
 TestCode:
   stage: test
-
-  script:

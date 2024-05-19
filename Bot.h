@@ -5,7 +5,7 @@
 #ifndef TP_PROJECT_BOT_H
 #define TP_PROJECT_BOT_H
 
-#import "Map.h"
+#include "Map.h"
 
 class Bot {
 private:

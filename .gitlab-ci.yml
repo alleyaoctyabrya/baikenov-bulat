@@ -29,9 +29,7 @@ TestCode:
   stage: test
 
   script:
-    - cd /bin
-    - ./CTestExe --gtest_output=xml:report.xml
-
+    - cd bin
   artifacts:
     untracked: false
     reports:

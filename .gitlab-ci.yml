@@ -29,4 +29,5 @@ TestCode:
   stage: test
 
   script:
+    - mkdir bin
     - cd bin

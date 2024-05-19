@@ -24,7 +24,7 @@ BuildCode:
     when: on_success
     expire_in: 7 days
     paths:
-      - "/bin/"
+      - "bin/"
 TestCode:
   stage: test
 
@@ -36,4 +36,4 @@ TestCode:
     untracked: false
     reports:
       junit:
-        - /bin/report.xml
+        - bin/report.xml

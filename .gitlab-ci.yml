@@ -29,3 +29,4 @@ TestCode:
   stage: test
 
   script:
+    - cd bin

@@ -1,8 +1,0 @@
-/Users/bulatbaikenov/tp-project/cmake-build-debug/CMakeFiles/tp_project.dir
-/Users/bulatbaikenov/tp-project/cmake-build-debug/CMakeFiles/BLOCK_LIBRARY.dir
-/Users/bulatbaikenov/tp-project/cmake-build-debug/CMakeFiles/BOT_LIBRARY.dir
-/Users/bulatbaikenov/tp-project/cmake-build-debug/CMakeFiles/MAP_LIBRARY.dir
-/Users/bulatbaikenov/tp-project/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/bulatbaikenov/tp-project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/bulatbaikenov/tp-project/cmake-build-debug/_deps/asio-cmake-build/CMakeFiles/edit_cache.dir
-/Users/bulatbaikenov/tp-project/cmake-build-debug/_deps/asio-cmake-build/CMakeFiles/rebuild_cache.dir

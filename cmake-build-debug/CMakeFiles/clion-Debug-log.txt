@@ -1,7 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -G Ninja -S /Users/bulatbaikenov/tp-project -B /Users/bulatbaikenov/tp-project/cmake-build-debug
--- Fetching asio asio-1-12-2
--- asio asio-1-12-2 source found at /Users/bulatbaikenov/tp-project/cmake-build-debug/_deps/asio-cmake-src/asio-asio-1-12-2-src; skip fetching.
--- Populating asio asio-1-12-2 done; src at /Users/bulatbaikenov/tp-project/cmake-build-debug/_deps/asio-cmake-src/asio-asio-1-12-2-src
--- Configuring done (0.9s)
--- Generating done (0.0s)
--- Build files have been written to: /Users/bulatbaikenov/tp-project/cmake-build-debug

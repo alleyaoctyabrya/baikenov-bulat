@@ -1,2 +1,4 @@
-/cmake-build-debug
-/venv
+.DS_Store
+*.swp
+build/
+*.o

@@ -24,7 +24,8 @@ TEST(BoardTest, ReceiveShotMiss) {
 TEST(BoardTest, SinkAllShips) {
   Board b;
   for (const Ship& s : b.ships)
-    for (const Coord& c : s.getCells()) b.receiveShot(c.x, c.y);
+    for (const Coord& c : s.getCells())
+      b.receiveShot(c.x, c.y);
 
   EXPECT_TRUE(b.allShipsSunk());
 }

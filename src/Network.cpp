@@ -19,7 +19,9 @@ bool Network::startServer(unsigned short port) {
 }
 
 bool Network::acceptClient() {
-  if (!isServer) return false;
+  if (!isServer) {
+    return false;
+  }
 
   if (listener.accept(socket) == sf::Socket::Done) {
     listener.close();
@@ -30,7 +32,7 @@ bool Network::acceptClient() {
   return false;
 }
 
-bool Network::connectToServer(const sf::IpAddress &ip, unsigned short port) {
+bool Network::connectToServer(const sf::IpAddress& ip, unsigned short port) {
   isServer = false;
 
   socket.disconnect();
@@ -48,7 +50,9 @@ bool Network::connectToServer(const sf::IpAddress &ip, unsigned short port) {
 }
 
 bool Network::sendShot(int x, int y) {
-  if (!connected) return false;
+  if (!connected) {
+    return false;
+  }
   sf::Packet packet;
   packet << x << y;
 
@@ -58,8 +62,10 @@ bool Network::sendShot(int x, int y) {
   return (status == sf::Socket::Done);
 }
 
-bool Network::receiveShot(int &x, int &y) {
-  if (!connected) return false;
+bool Network::receiveShot(int& x, int& y) {
+  if (!connected) {
+    return false;
+  }
   sf::Packet packet;
   sf::Socket::Status status = socket.receive(packet);
   if (status == sf::Socket::Done) {
@@ -74,7 +80,9 @@ bool Network::receiveShot(int &x, int &y) {
 }
 
 bool Network::sendResult(int resultCode) {
-  if (!connected) return false;
+  if (!connected) {
+    return false;
+  }
   sf::Packet packet;
   packet << resultCode;
 
@@ -84,8 +92,10 @@ bool Network::sendResult(int resultCode) {
   return (status == sf::Socket::Done);
 }
 
-bool Network::receiveResult(int &resultCode) {
-  if (!connected) return false;
+bool Network::receiveResult(int& resultCode) {
+  if (!connected) {
+    return false;
+  }
   sf::Packet packet;
   sf::Socket::Status status = socket.receive(packet);
   if (status == sf::Socket::Done) {

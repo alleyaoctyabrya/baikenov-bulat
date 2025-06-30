@@ -41,6 +41,7 @@ void MainMenuState::handleMousePressed(int x, int y) {
         sf::FloatRect bounds = menuOptions[i].getGlobalBounds();
         if (bounds.contains(static_cast<float>(x), static_cast<float>(y))) {
             // Handle menu selection
+            std::string ip;
             switch (i) {
                 case 0: // Single player
                     game->startGame(GameMode::Single);
@@ -56,7 +57,12 @@ void MainMenuState::handleMousePressed(int x, int y) {
                     
                 case 3: // Network client
                     // Try to connect to server
-                    if (game->getNetwork().connectToServer(sf::IpAddress::LocalHost, 5000)) {
+                    std::cout << "Введите IP сервера (оставьте пустым для localhost): ";
+                    std::getline(std::cin, ip);
+                    if (ip.empty()) {
+                        ip = "127.0.0.1";
+                    }
+                    if (game->getNetwork().connectToServer(sf::IpAddress(ip), 5000)) {
                         game->startGame(GameMode::NetworkClient);
                     } else {
                         std::cerr << "Failed to connect to server" << std::endl;

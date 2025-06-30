@@ -2,8 +2,6 @@
 
 A classic Battleship game implementation with single-player, hot-seat, and network multiplayer modes, built with C++ and SFML.
 
-![Battleship Game](docs/screenshot.png)
-
 ## Features
 
 - **Multiple Game Modes**:

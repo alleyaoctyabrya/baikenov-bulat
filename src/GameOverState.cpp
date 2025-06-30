@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "ResourceManager.h"
 #include <iostream>
-
+#include <cmath>
 GameOverState::GameOverState(Game* game) 
     : GameState(game),
       animationTime(0.0f) {

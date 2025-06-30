@@ -31,6 +31,12 @@ set(BATTLESHIP_SRC
     src/Player.cpp
     src/AI.cpp
     src/Network.cpp
+    src/ResourceManager.cpp
+    src/MainMenuState.cpp
+    src/PlacingShipsState.cpp
+    src/ConnectingState.cpp
+    src/PlayingState.cpp
+    src/GameOverState.cpp
 )
 
 add_library(battleship STATIC ${BATTLESHIP_SRC})

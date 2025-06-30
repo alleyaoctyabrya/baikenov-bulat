@@ -133,7 +133,7 @@ void PlayingState::processNetworkShot(int x, int y) {
     ShotResult result = myBoard.receiveShot(x, y);
     
     // Send result back to the opponent
-    game->getNetwork().sendShotResult(static_cast<int>(result));
+    game->getNetwork().sendResult(static_cast<int>(result));
     
     // Play appropriate sound
     auto& rm = ResourceManager::getInstance();
@@ -171,7 +171,7 @@ void PlayingState::processNetworkShot(int x, int y) {
 
 void PlayingState::updateNetworkReceiveResult() {
     int resultCode;
-    if (game->getNetwork().receiveShotResult(resultCode)) {
+    if (game->getNetwork().receiveResult(resultCode)) {
         processNetworkShotResult(resultCode);
         waitingForNetworkResult = false;
     }

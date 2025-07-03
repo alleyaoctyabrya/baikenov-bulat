@@ -1,0 +1,64 @@
+image: debian:bookworm
+
+stages:
+  - build
+  - test
+
+default:
+  tags:
+    - cpu
+
+variables:
+  BUILD_DIR: build
+  CMAKE_BUILD_TYPE: Release
+
+.before_script: &before_script
+  before_script:
+    - apt-get update -qq
+    - >-
+      DEBIAN_FRONTEND=noninteractive
+      apt-get install -y --no-install-recommends
+      build-essential cmake git libsfml-dev xvfb xauth 
+    - rm -rf /var/lib/apt/lists/*
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - ${BUILD_DIR}/_deps
+    - ${BUILD_DIR}/CMakeCache.txt
+
+build:
+  stage: build
+  <<: *before_script
+  script:
+    - cmake -B ${BUILD_DIR} -S . -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTING=OFF
+    - cmake --build ${BUILD_DIR} --target BattleshipGame --parallel
+  artifacts:
+    paths:
+      - ${BUILD_DIR}/BattleshipGame
+    expire_in: 1 week
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: on_success
+    - if: '$CI_COMMIT_BRANCH'
+      when: on_success
+
+test:
+  stage: test
+  <<: *before_script
+  script: |
+    cmake -B ${BUILD_DIR} -S . -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON
+    cmake --build ${BUILD_DIR} --target BattleshipTests --parallel
+    # запустить тесты под виртуальным X-сервером
+    xvfb-run --auto-servernum --server-args='-screen 0 1280x720x24' \
+      ctest --test-dir ${BUILD_DIR} --output-on-failure --parallel $(nproc)
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - ${BUILD_DIR}/Testing/**/Test.xml
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: on_success
+    - if: '$CI_COMMIT_BRANCH'
+      when: on_success

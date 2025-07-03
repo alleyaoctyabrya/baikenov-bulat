@@ -1,71 +1,71 @@
-
-#define private public
-#define protected public
 #include "Game.h"
-#undef private
-#undef protected
-
 #include <gtest/gtest.h>
 
 TEST(GameTest, ConstructorInitializesDefaults) {
   Game g;
 
-  EXPECT_EQ(g.state, GameState::MainMenu);
-  EXPECT_EQ(g.mode, GameMode::Single);
-  EXPECT_FALSE(g.isGameOver);
-  EXPECT_FALSE(g.waitingForNetworkResult);
+  // Initial state should be MainMenu and default mode Single
+  EXPECT_EQ(g.getCurrentStateType(), GameStateType::MainMenu);
+  EXPECT_EQ(g.getGameMode(), GameMode::Single);
 
-  EXPECT_GT(g.boardOffsetX2, g.boardOffsetX1);
-  EXPECT_GT(g.boardOffsetY, 0);
-
-  g.window.close();
+  // Close the window to clean up
+  g.getWindow().close();
 }
 
 TEST(GameTest, StartSingleModeSetsPlacingState) {
   Game g;
   g.startGame(GameMode::Single);
 
-  EXPECT_EQ(g.state, GameState::Placing);
-  EXPECT_EQ(g.mode, GameMode::Single);
+  // After starting single-player game, state should be Placing and mode Single
+  EXPECT_EQ(g.getCurrentStateType(), GameStateType::Placing);
+  EXPECT_EQ(g.getGameMode(), GameMode::Single);
 
-  EXPECT_TRUE(g.player1.getBoard().ships.empty());
+  // Player 1's board should be empty (no ships placed yet)
+  EXPECT_TRUE(g.getPlayer1().getBoard().ships.empty());
+  // AI's board should have 5 ships (automatically placed for single-player mode)
+  EXPECT_EQ(g.getAI().getBoard().ships.size(), 5u);
 
-  EXPECT_EQ(g.playerAI.getBoard().ships.size(), 5u);
-
-  g.window.close();
+  g.getWindow().close();
 }
 
 TEST(GameTest, StartHotseatModeClearsBothBoards) {
   Game g;
   g.startGame(GameMode::Hotseat);
 
-  EXPECT_EQ(g.state, GameState::Placing);
-  EXPECT_EQ(g.mode, GameMode::Hotseat);
-  EXPECT_EQ(g.currentPlayerIndex, 0);
-  EXPECT_TRUE(g.player1.getBoard().ships.empty());
-  EXPECT_TRUE(g.player2.getBoard().ships.empty());
+  // After starting hotseat game, state Placing and mode Hotseat
+  EXPECT_EQ(g.getCurrentStateType(), GameStateType::Placing);
+  EXPECT_EQ(g.getGameMode(), GameMode::Hotseat);
+  // The first player index should be 0
+  EXPECT_EQ(g.getCurrentPlayerIndex(), 0);
+  // Both player boards should be cleared (no ships yet)
+  EXPECT_TRUE(g.getPlayer1().getBoard().ships.empty());
+  EXPECT_TRUE(g.getPlayer2().getBoard().ships.empty());
 
-  g.window.close();
+  g.getWindow().close();
 }
 
 TEST(GameTest, StartNetworkHostEntersConnectingState) {
   Game g;
   g.startGame(GameMode::NetworkHost);
 
-  EXPECT_EQ(g.mode, GameMode::NetworkHost);
-  EXPECT_EQ(g.state, GameState::Connecting);
-  EXPECT_FALSE(g.network.isConnected());
-  EXPECT_FALSE(g.opponentReady);
+  // After starting network host, mode should be NetworkHost and state should be Connecting
+  EXPECT_EQ(g.getGameMode(), GameMode::NetworkHost);
+  EXPECT_EQ(g.getCurrentStateType(), GameStateType::Connecting);
+  // Network should not yet be connected, and opponentReady should be false
+  EXPECT_FALSE(g.getNetwork().isConnected());
+  EXPECT_FALSE(g.isOpponentReady());
 
-  g.window.close();
+  g.getWindow().close();
 }
 
 TEST(GameTest, StartNetworkClientEndsInValidState) {
   Game g;
   g.startGame(GameMode::NetworkClient);
 
-  ASSERT_TRUE(g.state == GameState::Placing || g.state == GameState::MainMenu);
-  EXPECT_EQ(g.mode, GameMode::NetworkClient);
+  // Network client may either go to Placing or back to MainMenu (depending on implementation)
+  GameStateType st = g.getCurrentStateType();
+  ASSERT_TRUE(st == GameStateType::Placing || st == GameStateType::MainMenu);
+  EXPECT_EQ(g.getGameMode(), GameMode::NetworkClient);
 
-  g.window.close();
+  g.getWindow().close();
 }

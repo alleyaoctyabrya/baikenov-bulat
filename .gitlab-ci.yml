@@ -18,7 +18,7 @@ variables:
     - >-
       DEBIAN_FRONTEND=noninteractive
       apt-get install -y --no-install-recommends
-      build-essential cmake git libsfml-dev xvfb xauth 
+      build-essential cmake git
     - rm -rf /var/lib/apt/lists/*
 
 cache:
@@ -46,12 +46,10 @@ build:
 test:
   stage: test
   <<: *before_script
-  script: |
-    cmake -B ${BUILD_DIR} -S . -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON
-    cmake --build ${BUILD_DIR} --target BattleshipTests --parallel
-    # запустить тесты под виртуальным X-сервером
-    xvfb-run --auto-servernum --server-args='-screen 0 1280x720x24' \
-      ctest --test-dir ${BUILD_DIR} --output-on-failure --parallel $(nproc)
+  script:
+    - cmake -B ${BUILD_DIR} -S . -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON
+    - cmake --build ${BUILD_DIR} --target BattleshipTests --parallel
+    - ctest --test-dir ${BUILD_DIR} --output-on-failure --parallel $(nproc)
   artifacts:
     when: always
     reports:
